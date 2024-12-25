@@ -57,7 +57,8 @@ func mustLoadConfig(ctx *cli.Context) error {
 	}
 
 	cfg := config.GetConfig()
-	if err := config.CheckConfig(&cfg); err != nil {
+	cfg.Icon = configs.GetIcon()
+	if err := config.CheckConfig(cfg); err != nil {
 		return errors.Wrap(err, "check config")
 	}
 

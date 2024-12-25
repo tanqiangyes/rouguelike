@@ -1,6 +1,7 @@
 package window
 
 import (
+	"image"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -12,11 +13,11 @@ import (
 
 // Window 窗口
 type Window struct {
-	Config config.Config
+	Config *config.Config
 }
 
 // NewWindow 创建窗口
-func NewWindow(conf config.Config) *Window {
+func NewWindow(conf *config.Config) *Window {
 	return &Window{
 		Config: conf,
 	}
@@ -26,6 +27,7 @@ func NewWindow(conf config.Config) *Window {
 func (w *Window) Run() {
 	ebiten.SetWindowSize(w.Config.Width, w.Config.Height)
 	ebiten.SetWindowTitle(w.Config.AppName)
+	ebiten.SetWindowIcon([]image.Image{w.Config.Icon})
 	ebiten.SetTPS(w.Config.Tps)
 	if err := ebiten.RunGame(&Game{}); err != nil {
 		logger.NewMainEntry().WithError(err).Error("run game")

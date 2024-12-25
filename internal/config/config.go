@@ -1,6 +1,7 @@
 package config
 
 import (
+	"image"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -11,7 +12,7 @@ import (
 
 var (
 	isDEV   bool
-	conf    = Config{}
+	conf    = &Config{}
 	name, _ = os.Hostname()
 )
 
@@ -28,12 +29,13 @@ func init() {
 
 // Config 配置
 type Config struct {
-	AppName  string   `toml:"appName"`
-	Env      string   `toml:"env"`
-	Timezone Timezone `toml:"timezone"`
-	Width    int      `toml:"width"`
-	Height   int      `toml:"height"`
-	Tps      int      `toml:"tps"`
+	AppName  string      `toml:"appName"`
+	Icon     image.Image `toml:"icon"`
+	Env      string      `toml:"env"`
+	Timezone Timezone    `toml:"timezone"`
+	Width    int         `toml:"width"`
+	Height   int         `toml:"height"`
+	Tps      int         `toml:"tps"`
 }
 
 // GetLogEnvironment 格式化日志环境变量
@@ -57,7 +59,7 @@ func LoadFile(filename string) error {
 
 // Load 从toml数据载入配置
 func Load(b []byte) error {
-	err := toml.Unmarshal(b, &conf)
+	err := toml.Unmarshal(b, conf)
 	if err != nil {
 		return errors.WithStack(err)
 	}
@@ -74,7 +76,7 @@ func CheckConfig(conf *Config) error {
 }
 
 // GetConfig 获得配置对象
-func GetConfig() Config {
+func GetConfig() *Config {
 	return conf
 }
 
