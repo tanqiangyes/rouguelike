@@ -28,8 +28,12 @@ func init() {
 
 // Config 配置
 type Config struct {
+	AppName  string   `toml:"appName"`
 	Env      string   `toml:"env"`
 	Timezone Timezone `toml:"timezone"`
+	Width    int      `toml:"width"`
+	Height   int      `toml:"height"`
+	Tps      int      `toml:"tps"`
 }
 
 // GetLogEnvironment 格式化日志环境变量

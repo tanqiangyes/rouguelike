@@ -24,9 +24,9 @@ func NewWindow(conf config.Config) *Window {
 
 // Run 运行窗口
 func (w *Window) Run() {
-	ebiten.SetWindowSize(640, 480)
-	ebiten.SetWindowTitle("Hello, World!")
-	ebiten.SetTPS(1000)
+	ebiten.SetWindowSize(w.Config.Width, w.Config.Height)
+	ebiten.SetWindowTitle(w.Config.AppName)
+	ebiten.SetTPS(w.Config.Tps)
 	if err := ebiten.RunGame(&Game{}); err != nil {
 		logger.NewMainEntry().WithError(err).Error("run game")
 	}
