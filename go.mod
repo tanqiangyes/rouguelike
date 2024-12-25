@@ -2,11 +2,17 @@ module github.com/tanqiangyes/rouguelike
 
 go 1.22
 
-require fyne.io/fyne/v2 v2.5.3
+require (
+	fyne.io/fyne/v2 v2.5.3
+	github.com/BurntSushi/toml v1.4.0
+	github.com/pkg/errors v0.8.1
+	github.com/sirupsen/logrus v1.8.1
+	github.com/urfave/cli/v2 v2.4.0
+)
 
 require (
 	fyne.io/systray v1.11.0 // indirect
-	github.com/BurntSushi/toml v1.4.0 // indirect
+	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fredbi/uri v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
@@ -23,6 +29,7 @@ require (
 	github.com/jsummers/gobmp v0.0.0-20151104160322-e2ba15ffa76e // indirect
 	github.com/nicksnyder/go-i18n/v2 v2.4.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/rymdport/portal v0.3.0 // indirect
 	github.com/srwiley/oksvg v0.0.0-20221011165216-be6e8873101c // indirect
 	github.com/srwiley/rasterx v0.0.0-20220730225603-2ab79fcdd4ef // indirect
