@@ -1,6 +1,8 @@
 package window
 
 import (
+	"time"
+
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 
@@ -24,6 +26,7 @@ func NewWindow(conf config.Config) *Window {
 func (w *Window) Run() {
 	ebiten.SetWindowSize(640, 480)
 	ebiten.SetWindowTitle("Hello, World!")
+	ebiten.SetTPS(1000)
 	if err := ebiten.RunGame(&Game{}); err != nil {
 		logger.NewMainEntry().WithError(err).Error("run game")
 	}
@@ -39,7 +42,7 @@ func (g *Game) Update() error {
 
 // Draw 绘制
 func (g *Game) Draw(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, "Hello, World!")
+	ebitenutil.DebugPrint(screen, time.Now().Format(time.StampMilli))
 }
 
 // Layout 布局
