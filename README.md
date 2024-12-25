@@ -1,2 +1,2 @@
 # rouguelike
-a rougue like game  impliment by go + fyne
+a rougue like game  impliment by go + ebiten
