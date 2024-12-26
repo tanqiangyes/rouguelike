@@ -32,6 +32,7 @@ func NewGame(conf *config.Config) *Game {
 
 // Update 更新
 func (g *Game) Update() error {
+	MovePlayer(g)
 	return nil
 }
 
