@@ -1,14 +1,10 @@
 package config
 
 import (
-	"embed"
 	_ "embed"
 	"flag"
-	"log"
 	"os"
 
-	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/pkg/errors"
 
 	"github.com/tanqiangyes/rouguelike/internal/config"
@@ -21,25 +17,11 @@ var devConf []byte
 //go:embed i18n.toml
 var langData []byte
 
-//go:embed gopher.png
-var iconFile embed.FS
-
 // env 环境配置
 var env string
 
 // con 配置文件路径
 var con string
-
-// icon 图片地址
-var icon *ebiten.Image
-
-func init() {
-	var err error
-	icon, _, err = ebitenutil.NewImageFromFileSystem(iconFile, "gopher.png")
-	if err != nil {
-		log.Fatal(err)
-	}
-}
 
 // InitVar 设置启动参数
 func InitVar() {
@@ -107,9 +89,4 @@ func InitConfData(envs ...string) error {
 // GetLangData 获取多语言配置数据
 func GetLangData() []byte {
 	return langData
-}
-
-// GetIcon 获取icon
-func GetIcon() *ebiten.Image {
-	return icon
 }

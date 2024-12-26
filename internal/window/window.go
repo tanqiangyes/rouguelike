@@ -2,11 +2,10 @@ package window
 
 import (
 	"image"
-	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 
+	"github.com/tanqiangyes/rouguelike/assets"
 	"github.com/tanqiangyes/rouguelike/internal/config"
 	"github.com/tanqiangyes/rouguelike/pkg/logger"
 )
@@ -27,27 +26,9 @@ func NewWindow(conf *config.Config) *Window {
 func (w *Window) Run() {
 	ebiten.SetWindowSize(w.Config.Width, w.Config.Height)
 	ebiten.SetWindowTitle(w.Config.AppName)
-	ebiten.SetWindowIcon([]image.Image{w.Config.Icon})
+	ebiten.SetWindowIcon([]image.Image{assets.IconImage})
 	ebiten.SetTPS(w.Config.Tps)
-	if err := ebiten.RunGame(&Game{}); err != nil {
+	if err := ebiten.RunGame(NewGame()); err != nil {
 		logger.NewMainEntry().WithError(err).Error("run game")
 	}
-}
-
-// Game 游戏
-type Game struct{}
-
-// Update 更新
-func (g *Game) Update() error {
-	return nil
-}
-
-// Draw 绘制
-func (g *Game) Draw(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, time.Now().Format(time.StampMilli))
-}
-
-// Layout 布局
-func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 320, 240
 }
