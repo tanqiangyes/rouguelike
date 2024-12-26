@@ -29,27 +29,29 @@ func (l *Level) GetIndexFromXY(x int, y int) int {
 
 // CreateTiles 创建tiles
 func (l *Level) CreateTiles(gd *GameData) []MapTile {
-	tiles := make([]MapTile, 0)
+	tiles := make([]MapTile, l.Gd.ScreenHeight*l.Gd.ScreenWidth)
+	index := 0
 	gdScreenWidth := gd.ScreenWidth - 1
 	gdScreenHeight := gd.ScreenHeight - 1
 	for x := 0; x < gd.ScreenWidth; x++ {
 		for y := 0; y < gd.ScreenHeight; y++ {
+			index = l.GetIndexFromXY(x, y)
 			if x == 0 || x == gdScreenWidth || y == 0 || y == gdScreenHeight {
-				tiles = append(tiles, MapTile{
+				tiles[index] = MapTile{
 					PixelX:  x * gd.TileWidth,
 					PixelY:  y * gd.TileHeight,
 					Blocked: true,
 					Opaque:  true,
 					Image:   assets.WallImage,
-				})
+				}
 			} else {
-				tiles = append(tiles, MapTile{
+				tiles[index] = MapTile{
 					PixelX:  x * gd.TileWidth,
 					PixelY:  y * gd.TileHeight,
 					Blocked: false,
 					Opaque:  false,
 					Image:   assets.FloorImage,
-				})
+				}
 			}
 		}
 	}
