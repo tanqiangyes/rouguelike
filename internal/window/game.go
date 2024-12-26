@@ -1,21 +1,32 @@
 package window
 
 import (
+	"github.com/bytearena/ecs"
 	"github.com/hajimehoshi/ebiten/v2"
+
+	"github.com/tanqiangyes/rouguelike/internal/components"
+	"github.com/tanqiangyes/rouguelike/internal/config"
 )
 
-// Game 游戏实体
+// Game 游戏主体
 type Game struct {
-	Map *GameMap
-	Gd  *GameData
+	Map       *GameMap
+	Gd        *GameData
+	Config    *config.Config
+	World     *ecs.Manager
+	WorldTags map[string]ecs.Tag
 }
 
-// NewGame 创建游戏实体
-func NewGame() *Game {
+// NewGame 创建游戏主体
+func NewGame(conf *config.Config) *Game {
 	gd := NewGameData()
+	world, tags := components.InitializeWorld()
 	return &Game{
-		Map: NewGameMap(gd),
-		Gd:  gd,
+		Map:       NewGameMap(gd, conf.Lang),
+		Gd:        gd,
+		Config:    conf,
+		World:     world,
+		WorldTags: tags,
 	}
 }
 
@@ -27,15 +38,7 @@ func (g *Game) Update() error {
 // Draw 绘制
 func (g *Game) Draw(screen *ebiten.Image) {
 	level := g.Map.Dungeons[0].Levels[0]
-	// Draw the Map
-	for x := 0; x < g.Gd.ScreenWidth; x++ {
-		for y := 0; y < g.Gd.ScreenHeight; y++ {
-			tile := level.Tiles[level.GetIndexFromXY(x, y)]
-			op := &ebiten.DrawImageOptions{}
-			op.GeoM.Translate(float64(tile.PixelX), float64(tile.PixelY))
-			screen.DrawImage(tile.Image, op)
-		}
-	}
+	level.DrawLevel(screen)
 }
 
 // Layout 布局

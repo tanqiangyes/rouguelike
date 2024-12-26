@@ -1,6 +1,6 @@
 package window
 
-// GameData is the data structure that holds the game data
+// GameData 游戏相应的数据
 type GameData struct {
 	ScreenWidth  int
 	ScreenHeight int
@@ -8,6 +8,7 @@ type GameData struct {
 	TileHeight   int
 }
 
+// NewGameData 创建游戏数据
 func NewGameData() *GameData {
 	return &GameData{
 		ScreenWidth:  80,

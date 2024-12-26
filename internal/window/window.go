@@ -10,7 +10,7 @@ import (
 	"github.com/tanqiangyes/rouguelike/pkg/logger"
 )
 
-// Window 窗口
+// Window 游戏窗口
 type Window struct {
 	Config *config.Config
 }
@@ -28,7 +28,7 @@ func (w *Window) Run() {
 	ebiten.SetWindowTitle(w.Config.AppName)
 	ebiten.SetWindowIcon([]image.Image{assets.IconImage})
 	ebiten.SetTPS(w.Config.Tps)
-	if err := ebiten.RunGame(NewGame()); err != nil {
+	if err := ebiten.RunGame(NewGame(w.Config)); err != nil {
 		logger.NewMainEntry().WithError(err).Error("run game")
 	}
 }

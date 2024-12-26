@@ -1,5 +1,5 @@
-["admin_nickname_illegal"]
-	"cn" = "违规昵称请修改"
-	"tw" = "違規昵稱請修改"
-	"hk" = "違規昵稱請修改"
-	"en" = "Please change your username"
+["default_dungeon_name"]
+	"cn" = "默认地图"
+	"tw" = "默认地图1"
+	"hk" = "默认地图2"
+	"en" = "Default Map"

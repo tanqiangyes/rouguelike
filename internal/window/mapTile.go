@@ -4,7 +4,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-// MapTile represents a single tile on the map.
+// MapTile 地图块
 type MapTile struct {
 	PixelX  int
 	PixelY  int

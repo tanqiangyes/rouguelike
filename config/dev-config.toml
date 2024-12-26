@@ -4,3 +4,4 @@ timezone = "Asia/Shanghai"
 width = 640
 height = 480
 tps = 60
+lang = "en"

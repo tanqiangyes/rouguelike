@@ -1,29 +1,33 @@
 package window
 
 import (
+	"github.com/hajimehoshi/ebiten/v2"
+
 	"github.com/tanqiangyes/rouguelike/assets"
 )
 
-// Level holds the tile information for a complete dungeon level.
+// Level  dungeon level.
 type Level struct {
 	Tiles []MapTile
+	Gd    *GameData
 }
 
-// NewLevel creates a new level with the default tiles.
+// NewLevel 创建默认的level
 func NewLevel(data *GameData) Level {
-	l := Level{}
+	l := Level{
+		Gd: data,
+	}
 	l.Tiles = l.CreateTiles(data)
 	return l
 }
 
-// GetIndexFromXY gets the index of the map array from a given X,Y TILE coordinate.
-// This coordinate is logical tiles, not pixels.
+// GetIndexFromXY 获取坐标对应的索引
 func (l *Level) GetIndexFromXY(x int, y int) int {
 	gd := NewGameData()
 	return y*gd.ScreenWidth + x
 }
 
-// CreateTiles creates a slice of MapTile structs for the game map.
+// CreateTiles 创建tiles
 func (l *Level) CreateTiles(gd *GameData) []MapTile {
 	tiles := make([]MapTile, 0)
 	gdScreenWidth := gd.ScreenWidth - 1
@@ -50,4 +54,16 @@ func (l *Level) CreateTiles(gd *GameData) []MapTile {
 		}
 	}
 	return tiles
+}
+
+// DrawLevel 绘制level
+func (l *Level) DrawLevel(screen *ebiten.Image) {
+	for x := 0; x < l.Gd.ScreenWidth; x++ {
+		for y := 0; y < l.Gd.ScreenHeight; y++ {
+			tile := l.Tiles[l.GetIndexFromXY(x, y)]
+			op := &ebiten.DrawImageOptions{}
+			op.GeoM.Translate(float64(tile.PixelX), float64(tile.PixelY))
+			screen.DrawImage(tile.Image, op)
+		}
+	}
 }
