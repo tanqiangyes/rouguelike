@@ -19,33 +19,3 @@ func ProcessRenderables(g *Game, level Level, screen *ebiten.Image) {
 		screen.DrawImage(img, op)
 	}
 }
-
-// MovePlayer 移动玩家
-func MovePlayer(g *Game) {
-	players := g.WorldTags["players"]
-
-	x := 0
-	y := 0
-
-	if ebiten.IsKeyPressed(ebiten.KeyUp) {
-		y = -1
-	}
-
-	if ebiten.IsKeyPressed(ebiten.KeyDown) {
-		y = 1
-	}
-
-	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
-		x = -1
-	}
-
-	if ebiten.IsKeyPressed(ebiten.KeyRight) {
-		x = 1
-	}
-
-	for _, result := range g.World.Query(players) {
-		pos := result.Components[components.PositionComponent].(*components.Position)
-		pos.X += x
-		pos.Y += y
-	}
-}

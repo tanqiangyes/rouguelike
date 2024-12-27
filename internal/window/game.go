@@ -38,7 +38,7 @@ func (g *Game) Update() error {
 
 // Draw 绘制
 func (g *Game) Draw(screen *ebiten.Image) {
-	level := g.Map.Dungeons[0].Levels[0]
+	level := g.Map.CurrentLevel
 	level.DrawLevel(screen)
 	ProcessRenderables(g, level, screen)
 }

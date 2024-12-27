@@ -6,8 +6,9 @@ import (
 
 // GameMap 地图
 type GameMap struct {
-	Dungeons []Dungeon
-	Lang     i18n.Lang
+	Dungeons     []Dungeon
+	CurrentLevel Level
+	Lang         i18n.Lang
 }
 
 // NewGameMap 创建一个新的地图
@@ -22,7 +23,8 @@ func NewGameMap(data *GameData, lang i18n.Lang) *GameMap {
 	dungeons := make([]Dungeon, 0)
 	dungeons = append(dungeons, d)
 	return &GameMap{
-		Dungeons: dungeons,
-		Lang:     lang,
+		Dungeons:     dungeons,
+		CurrentLevel: l,
+		Lang:         lang,
 	}
 }
