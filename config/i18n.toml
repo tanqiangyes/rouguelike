@@ -1,5 +1,66 @@
 ["default_dungeon_name"]
-	"cn" = "默认地图"
-	"tw" = "默认地图1"
-	"hk" = "默认地图2"
-	"en" = "Default Map"
+"cn" = "默认地图"
+"tw" = "默认地图1"
+"hk" = "默认地图2"
+"en" = "Default Map"
+
+
+["time_day"]
+"cn" = "天"
+"tw" = "天"
+"hk" = "天"
+"en" = "days"
+
+["time_hour"]
+"cn" = "小时"
+"tw" = "小時"
+"hk" = "小時"
+"en" = "hrs"
+
+["time_min"]
+"cn" = "分钟"
+"tw" = "分鍾"
+"hk" = "分鍾"
+"en" = "mins"
+
+["time_minute"]
+"cn" = "分"
+"tw" = "分"
+"hk" = "分"
+"en" = "mins"
+
+["time_second"]
+"cn" = "秒"
+"tw" = "秒"
+"hk" = "秒"
+"en" = "secs"
+
+["time_d"]
+"cn" = "天"
+"tw" = "天"
+"hk" = "天"
+"en" = "d"
+
+["time_today"]
+"cn" = "今日"
+"tw" = "今日"
+"hk" = "今日"
+"en" = "today"
+
+["time_h"]
+"cn" = "小时"
+"tw" = "小時"
+"hk" = "小時"
+"en" = "h"
+
+["time_m"]
+"cn" = "分"
+"tw" = "分"
+"hk" = "分"
+"en" = "m"
+
+["time_s"]
+"cn" = "秒"
+"tw" = "秒"
+"hk" = "秒"
+"en" = "s"
