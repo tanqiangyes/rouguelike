@@ -2,8 +2,6 @@ package window
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
-
-	"github.com/tanqiangyes/rouguelike/internal/components"
 )
 
 // MovePlayer 移动玩家
@@ -31,7 +29,7 @@ func MovePlayer(g *Game) {
 	level := g.Map.CurrentLevel
 
 	for _, result := range g.World.Query(players) {
-		pos := result.Components[components.PositionComponent].(*components.Position)
+		pos := result.Components[PositionComponent].(*Position)
 		index := level.GetIndexFromXY(pos.X+x, pos.Y+y)
 
 		tile := level.Tiles[index]

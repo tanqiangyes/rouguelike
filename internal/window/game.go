@@ -4,7 +4,6 @@ import (
 	"github.com/bytearena/ecs"
 	"github.com/hajimehoshi/ebiten/v2"
 
-	"github.com/tanqiangyes/rouguelike/internal/components"
 	"github.com/tanqiangyes/rouguelike/internal/config"
 )
 
@@ -19,15 +18,12 @@ type Game struct {
 
 // NewGame 创建游戏主体
 func NewGame(conf *config.Config) *Game {
-	gd := NewGameData()
-	world, tags := components.InitializeWorld()
-	return &Game{
-		Map:       NewGameMap(gd, conf.Lang),
-		Gd:        gd,
-		Config:    conf,
-		World:     world,
-		WorldTags: tags,
-	}
+	g := &Game{Gd: NewGameData(), Config: conf}
+	g.Map = NewGameMap(g.Gd, conf.Lang)
+	world, tags := InitializeWorld(g.Map.CurrentLevel)
+	g.WorldTags = tags
+	g.World = world
+	return g
 }
 
 // Update 更新

@@ -1,4 +1,4 @@
-package components
+package window
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
