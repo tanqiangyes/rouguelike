@@ -13,8 +13,8 @@ func NewRect(x int, y int, width int, height int) Rect {
 	return Rect{
 		X1: x,
 		X2: y,
-		Y1: width,
-		Y2: height,
+		Y1: x + width,
+		Y2: y + height,
 	}
 }
 
@@ -25,5 +25,5 @@ func (r *Rect) Center() (int, int) {
 
 // Intersect 判断是否相交
 func (r *Rect) Intersect(other Rect) bool {
-	return r.X1 <= other.X2 && r.X2 >= other.X1 && r.Y1 <= other.Y1 && r.Y2 >= other.Y2
+	return r.X1 <= other.X2 && r.X2 >= other.X1 && r.Y1 <= other.Y1 && r.Y2 >= other.Y1
 }

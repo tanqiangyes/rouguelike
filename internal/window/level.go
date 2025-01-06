@@ -19,7 +19,7 @@ func NewLevel(data *GameData) Level {
 	l := Level{
 		Gd: data,
 	}
-	l.Tiles = l.CreateTiles(data)
+	// l.Tiles = l.CreateTiles(data)
 	l.Rooms = make([]Rect, 0)
 	l.GenerateLevelTiles()
 	return l
@@ -68,6 +68,7 @@ func (l *Level) CreateRoom(room Rect) {
 		for x := room.X1 + 1; x < room.X2; x++ {
 			index := l.GetIndexFromXY(x, y)
 			l.Tiles[index].Blocked = false
+			l.Tiles[index].Opaque = false
 			l.Tiles[index].Image = assets.FloorImage
 		}
 	}
@@ -86,8 +87,8 @@ func (l *Level) GenerateLevelTiles() {
 	for idx := 0; idx < MaxRooms; idx++ {
 		w := pkg.GetRandomBetween(MinSize, MaxSize)
 		h := pkg.GetRandomBetween(MinSize, MaxSize)
-		x := pkg.GetDiceRoll(gd.ScreenWidth-w-1) - 1
-		y := pkg.GetDiceRoll(gd.ScreenHeight-h-1) - 1
+		x := pkg.GetDiceRoll(gd.ScreenWidth - w - 1)
+		y := pkg.GetDiceRoll(gd.ScreenHeight - h - 1)
 
 		newRoom := NewRect(x, y, w, h)
 
