@@ -76,6 +76,7 @@ func (l *Level) CreateRoom(room Rect) {
 
 // GenerateLevelTiles 创建层级tile
 func (l *Level) GenerateLevelTiles() {
+	containsRooms := false
 	MinSize := 6
 	MaxSize := 10
 	MaxRooms := 30
@@ -103,7 +104,45 @@ func (l *Level) GenerateLevelTiles() {
 
 		if okToAdd {
 			l.CreateRoom(newRoom)
+			if containsRooms {
+				newX, newY := newRoom.Center()
+				prevX, prevY := l.Rooms[len(l.Rooms)-1].Center()
+
+				coinflip := pkg.GetDiceRoll(2)
+
+				if coinflip == 2 {
+					l.createHorizontalTunnel(prevX, newX, prevY)
+					l.createVerticalTunnel(prevY, newY, newX)
+				} else {
+					l.createHorizontalTunnel(prevX, newX, newY)
+					l.createVerticalTunnel(prevY, newY, prevX)
+				}
+			}
 			l.Rooms = append(l.Rooms, newRoom)
+			containsRooms = true
+		}
+	}
+}
+
+func (l Level) createHorizontalTunnel(x1 int, x2 int, y int) {
+	x := pkg.Min(x1, x2)
+	max := pkg.Max(x1, x2) + 1
+	for ; x < max; x++ {
+		index := l.GetIndexFromXY(x, y)
+		if index > 0 && index < l.Gd.ScreenWidth*l.Gd.ScreenHeight {
+			l.Tiles[index].Blocked = false
+			l.Tiles[index].Image = assets.FloorImage
+		}
+	}
+}
+func (l Level) createVerticalTunnel(y1 int, y2 int, x int) {
+	y := pkg.Min(y1, y2)
+	max := pkg.Max(y1, y2) + 1
+	for ; y < max; y++ {
+		index := l.GetIndexFromXY(x, y)
+		if index > 0 && index < l.Gd.ScreenWidth*l.Gd.ScreenHeight {
+			l.Tiles[index].Blocked = false
+			l.Tiles[index].Image = assets.FloorImage
 		}
 	}
 }
