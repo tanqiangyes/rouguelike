@@ -1,6 +1,8 @@
 package window
 
 import (
+	"image/color"
+
 	"github.com/hajimehoshi/ebiten/v2"
 
 	"github.com/norendren/go-fov/fov"
@@ -69,9 +71,14 @@ func (l *Level) DrawLevel(screen *ebiten.Image) {
 			} else if tile.IsRevealed && !tile.Blocked {
 				op := &ebiten.DrawImageOptions{}
 				op.GeoM.Translate(float64(tile.PixelX), float64(tile.PixelY))
-				// op.ColorScale.ScaleWithColor(color.Gray16{Y: 128})
+				op.ColorScale.ScaleWithColor(color.RGBA{
+					R: 149,
+					G: 165,
+					B: 166,
+					A: 0,
+				})
 				// op.ColorScale.Scale(218, 223, 225, 1)
-				op.ColorM.Translate(218, 223, 225, 1)
+				// op.ColorM.Translate(218, 223, 225, 1)
 				screen.DrawImage(tile.Image, op)
 			} else if tile.IsRevealed && tile.Blocked {
 				op := &ebiten.DrawImageOptions{}
