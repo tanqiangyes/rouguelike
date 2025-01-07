@@ -9,11 +9,13 @@ import (
 
 // Game 游戏主体
 type Game struct {
-	Map       *GameMap
-	Gd        *GameData
-	Config    *config.Config
-	World     *ecs.Manager
-	WorldTags map[string]ecs.Tag
+	Map         *GameMap
+	Gd          *GameData
+	Config      *config.Config
+	World       *ecs.Manager
+	Turn        TurnState
+	TurnCounter int
+	WorldTags   map[string]ecs.Tag
 }
 
 // NewGame 创建游戏主体
@@ -23,12 +25,18 @@ func NewGame(conf *config.Config) *Game {
 	world, tags := InitializeWorld(g.Map.CurrentLevel)
 	g.WorldTags = tags
 	g.World = world
+	g.Turn = PlayerTurn
+	g.TurnCounter = 0
 	return g
 }
 
 // Update 更新
 func (g *Game) Update() error {
-	MovePlayer(g)
+	g.TurnCounter++
+	if g.Turn == PlayerTurn && g.TurnCounter > 20 {
+		MovePlayer(g)
+	}
+	g.Turn = PlayerTurn
 	return nil
 }
 

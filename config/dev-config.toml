@@ -1,7 +1,7 @@
 appName = "Rouguelike"
 env = "dev"
 timezone = "Asia/Shanghai"
-width = 1280
-height = 800
+width = 1320
+height = 820
 tps = 60
 lang = "en"

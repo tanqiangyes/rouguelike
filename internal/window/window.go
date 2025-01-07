@@ -25,7 +25,6 @@ func NewWindow(conf *config.Config) *Window {
 // Run 运行窗口
 func (w *Window) Run() {
 	ebiten.SetWindowSize(w.Config.Width, w.Config.Height)
-	ebiten.SetWindowResizable(true)
 	ebiten.SetWindowTitle(w.Config.AppName)
 	ebiten.SetWindowIcon([]image.Image{assets.IconImage})
 	ebiten.SetTPS(w.Config.Tps)

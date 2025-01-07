@@ -27,8 +27,7 @@ func NewLevel(data *GameData) Level {
 
 // GetIndexFromXY 获取坐标对应的索引
 func (l *Level) GetIndexFromXY(x int, y int) int {
-	gd := NewGameData()
-	return y*gd.ScreenWidth + x
+	return y*l.Gd.ScreenWidth + x
 }
 
 // CreateTiles 创建tiles

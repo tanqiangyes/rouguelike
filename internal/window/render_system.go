@@ -7,8 +7,8 @@ import (
 // ProcessRenderables 渲染
 func ProcessRenderables(g *Game, level Level, screen *ebiten.Image) {
 	for _, result := range g.World.Query(g.WorldTags["renderables"]) {
-		pos := result.Components[PositionComponent].(*Position)
-		img := result.Components[RenderableComponent].(*Renderable).Image
+		pos := result.Components[positionComponent].(*Position)
+		img := result.Components[renderableComponent].(*Renderable).Image
 
 		index := level.GetIndexFromXY(pos.X, pos.Y)
 		tile := level.Tiles[index]

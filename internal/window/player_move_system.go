@@ -29,16 +29,17 @@ func MovePlayer(g *Game) {
 	level := g.Map.CurrentLevel
 
 	for _, result := range g.World.Query(players) {
-		pos := result.Components[PositionComponent].(*Position)
+		pos := result.Components[positionComponent].(*Position)
 		index := level.GetIndexFromXY(pos.X+x, pos.Y+y)
-		if index >= len(level.Tiles) {
-			return
-		}
 
 		tile := level.Tiles[index]
 		if !tile.Blocked {
 			pos.X += x
 			pos.Y += y
+		}
+		if x != 0 || y != 0 {
+			g.Turn = GetNextState(g.Turn)
+			g.TurnCounter = 0
 		}
 	}
 }
