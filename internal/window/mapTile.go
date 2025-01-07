@@ -6,9 +6,10 @@ import (
 
 // MapTile 地图块
 type MapTile struct {
-	PixelX  int
-	PixelY  int
-	Blocked bool
-	Opaque  bool
-	Image   *ebiten.Image
+	PixelX     int
+	PixelY     int
+	Blocked    bool
+	Opaque     bool
+	IsRevealed bool
+	Image      *ebiten.Image
 }
