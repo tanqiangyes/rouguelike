@@ -3,15 +3,18 @@ package window
 import (
 	"github.com/hajimehoshi/ebiten/v2"
 
+	"github.com/norendren/go-fov/fov"
+
 	"github.com/tanqiangyes/rouguelike/assets"
 	"github.com/tanqiangyes/rouguelike/pkg"
 )
 
 // Level  dungeon level.
 type Level struct {
-	Tiles []MapTile
-	Rooms []Rect
-	Gd    *GameData
+	Tiles         []MapTile
+	Rooms         []Rect
+	PlayerVisible *fov.View
+	Gd            *GameData
 }
 
 // NewLevel 创建默认的level
@@ -22,6 +25,7 @@ func NewLevel(data *GameData) Level {
 	// l.Tiles = l.CreateTiles(data)
 	l.Rooms = make([]Rect, 0)
 	l.GenerateLevelTiles()
+	l.PlayerVisible = fov.New()
 	return l
 }
 
@@ -53,10 +57,12 @@ func (l *Level) CreateTiles(gd *GameData) []MapTile {
 func (l *Level) DrawLevel(screen *ebiten.Image) {
 	for x := 0; x < l.Gd.ScreenWidth; x++ {
 		for y := 0; y < l.Gd.ScreenHeight; y++ {
-			tile := l.Tiles[l.GetIndexFromXY(x, y)]
-			op := &ebiten.DrawImageOptions{}
-			op.GeoM.Translate(float64(tile.PixelX), float64(tile.PixelY))
-			screen.DrawImage(tile.Image, op)
+			if l.PlayerVisible.IsVisible(x, y) {
+				tile := l.Tiles[l.GetIndexFromXY(x, y)]
+				op := &ebiten.DrawImageOptions{}
+				op.GeoM.Translate(float64(tile.PixelX), float64(tile.PixelY))
+				screen.DrawImage(tile.Image, op)
+			}
 		}
 	}
 }
@@ -123,7 +129,7 @@ func (l *Level) GenerateLevelTiles() {
 	}
 }
 
-func (l Level) createHorizontalTunnel(x1 int, x2 int, y int) {
+func (l *Level) createHorizontalTunnel(x1 int, x2 int, y int) {
 	x := pkg.Min(x1, x2)
 	max := pkg.Max(x1, x2) + 1
 	for ; x < max; x++ {
@@ -134,7 +140,7 @@ func (l Level) createHorizontalTunnel(x1 int, x2 int, y int) {
 		}
 	}
 }
-func (l Level) createVerticalTunnel(y1 int, y2 int, x int) {
+func (l *Level) createVerticalTunnel(y1 int, y2 int, x int) {
 	y := pkg.Min(y1, y2)
 	max := pkg.Max(y1, y2) + 1
 	for ; y < max; y++ {
@@ -144,4 +150,18 @@ func (l Level) createVerticalTunnel(y1 int, y2 int, x int) {
 			l.Tiles[index].Image = assets.FloorImage
 		}
 	}
+}
+
+// InBounds 是否在棋牌内
+func (l Level) InBounds(x, y int) bool {
+	if x < 0 || x > l.Gd.ScreenWidth || y < 0 || y > l.Gd.ScreenHeight {
+		return false
+	}
+	return true
+}
+
+// IsOpaque 是否可见
+func (l Level) IsOpaque(x, y int) bool {
+	idx := l.GetIndexFromXY(x, y)
+	return l.Tiles[idx].Opaque
 }

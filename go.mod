@@ -6,6 +6,7 @@ require (
 	github.com/BurntSushi/toml v1.4.0
 	github.com/bytearena/ecs v1.0.0
 	github.com/hajimehoshi/ebiten/v2 v2.8.5
+	github.com/norendren/go-fov v1.0.1
 	github.com/pkg/errors v0.8.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/urfave/cli/v2 v2.4.0
