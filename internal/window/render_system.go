@@ -10,10 +10,12 @@ func ProcessRenderables(g *Game, level Level, screen *ebiten.Image) {
 		pos := result.Components[positionComponent].(*Position)
 		img := result.Components[renderableComponent].(*Renderable).Image
 
-		index := level.GetIndexFromXY(pos.X, pos.Y)
-		tile := level.Tiles[index]
-		op := &ebiten.DrawImageOptions{}
-		op.GeoM.Translate(float64(tile.PixelX), float64(tile.PixelY))
-		screen.DrawImage(img, op)
+		if level.PlayerVisible.IsVisible(pos.X, pos.Y) {
+			index := level.GetIndexFromXY(pos.X, pos.Y)
+			tile := level.Tiles[index]
+			op := &ebiten.DrawImageOptions{}
+			op.GeoM.Translate(float64(tile.PixelX), float64(tile.PixelY))
+			screen.DrawImage(img, op)
+		}
 	}
 }

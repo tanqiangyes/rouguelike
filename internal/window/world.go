@@ -21,6 +21,7 @@ func InitializeWorld(startLevel Level) (*ecs.Manager, map[string]ecs.Tag) {
 	positionComponent = manager.NewComponent()
 	renderableComponent = manager.NewComponent()
 	movable := manager.NewComponent()
+	monster := manager.NewComponent()
 
 	manager.NewEntity().
 		AddComponent(player, Player{}).
@@ -35,5 +36,22 @@ func InitializeWorld(startLevel Level) (*ecs.Manager, map[string]ecs.Tag) {
 
 	tags["players"] = ecs.BuildTag(player, positionComponent)
 	tags["renderables"] = ecs.BuildTag(renderableComponent, positionComponent)
+
+	// Add a Monster in each room except the player's room
+	for _, room := range startLevel.Rooms {
+		if room.X1 != startRoom.X1 {
+			mX, mY := room.Center()
+			manager.NewEntity().
+				AddComponent(monster, Monster{}).
+				AddComponent(renderableComponent, &Renderable{
+					Image: assets.SkellyImage,
+				}).
+				AddComponent(positionComponent, &Position{
+					X: mX,
+					Y: mY,
+				})
+		}
+	}
+
 	return manager, tags
 }

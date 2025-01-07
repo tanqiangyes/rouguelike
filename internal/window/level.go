@@ -50,6 +50,7 @@ func (l *Level) CreateTiles(gd *GameData) []MapTile {
 				Opaque:     true,
 				IsRevealed: false,
 				Image:      assets.WallImage,
+				TileType:   Wall,
 			}
 		}
 	}
@@ -97,6 +98,7 @@ func (l *Level) CreateRoom(room Rect) {
 			l.Tiles[index].Blocked = false
 			l.Tiles[index].Opaque = false
 			l.Tiles[index].IsRevealed = false
+			l.Tiles[index].TileType = Floor
 			l.Tiles[index].Image = assets.FloorImage
 		}
 	}
@@ -160,6 +162,7 @@ func (l *Level) createHorizontalTunnel(x1 int, x2 int, y int) {
 		if index > 0 && index < l.Gd.ScreenWidth*l.Gd.ScreenHeight {
 			l.Tiles[index].Blocked = false
 			l.Tiles[index].Image = assets.FloorImage
+			l.Tiles[index].TileType = Floor
 		}
 	}
 }
@@ -171,6 +174,7 @@ func (l *Level) createVerticalTunnel(y1 int, y2 int, x int) {
 		if index > 0 && index < l.Gd.ScreenWidth*l.Gd.ScreenHeight {
 			l.Tiles[index].Blocked = false
 			l.Tiles[index].Image = assets.FloorImage
+			l.Tiles[index].TileType = Floor
 		}
 	}
 }
@@ -186,5 +190,5 @@ func (l Level) InBounds(x, y int) bool {
 // IsOpaque 是否可见
 func (l Level) IsOpaque(x, y int) bool {
 	idx := l.GetIndexFromXY(x, y)
-	return l.Tiles[idx].Opaque
+	return l.Tiles[idx].TileType.IsWall()
 }

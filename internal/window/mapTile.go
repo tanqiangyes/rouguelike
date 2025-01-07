@@ -11,5 +11,6 @@ type MapTile struct {
 	Blocked    bool
 	Opaque     bool
 	IsRevealed bool
+	TileType   TileType
 	Image      *ebiten.Image
 }
