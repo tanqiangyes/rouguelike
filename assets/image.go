@@ -22,6 +22,9 @@ var PlayerImage *ebiten.Image
 // WallImage app WallImage
 var WallImage *ebiten.Image
 
+// SkellyImage app SkellyImage
+var SkellyImage *ebiten.Image
+
 func init() {
 	var err error
 	IconImage, _, err = ebitenutil.NewImageFromFileSystem(iconFile, "gopher.png")
@@ -37,6 +40,10 @@ func init() {
 		panic(err)
 	}
 	WallImage, _, err = ebitenutil.NewImageFromFileSystem(iconFile, "wall.png")
+	if err != nil {
+		panic(err)
+	}
+	SkellyImage, _, err = ebitenutil.NewImageFromFileSystem(iconFile, "skelly.png")
 	if err != nil {
 		panic(err)
 	}
