@@ -69,7 +69,7 @@ func (l *Level) DrawLevel(screen *ebiten.Image) {
 			} else if tile.IsRevealed && !tile.Blocked {
 				op := &ebiten.DrawImageOptions{}
 				op.GeoM.Translate(float64(tile.PixelX), float64(tile.PixelY))
-				op.ColorScale.Scale(100, 100, 100, 0.35)
+				op.ColorScale.Scale(128, 128, 128, 0.35)
 				// op.ColorM.Translate(100, 100, 100, 0.35)
 				screen.DrawImage(tile.Image, op)
 			}
